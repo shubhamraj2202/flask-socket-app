@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <title>Socket App</title>
+  </head>
+  <body>
+    <div class="message_holder"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+    <script type="text/javascript">
+	var myVar = setInterval(check_socket, 0000);
+	function check_socket(){
+      var socket = io.connect('http://' + document.domain + ':' + location.port);
+      socket.on( 'connect', function() {
+        socket.emit( 'my event', {
+          data: 'User Connected'
+        } )
+      } )
+      socket.on( 'my response', function( msg ) {
+        console.log( msg )
+          $( 'h3' ).remove()
+          $( 'div.message_holder' ).append( '<div><b style="color: #000">'+msg+'</b> '+'</div>' )
+      })
+	 }
+    </script>
+  </body>
+  </html>
